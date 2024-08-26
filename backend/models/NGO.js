@@ -2,19 +2,23 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const NGOSchema = new Schema({
-    ngo: { type: mongoose.Schema.Types.ObjectId, ref: 'ngo' },
-    name: { type: String, required: true},
-    email: { type: String, required: true, unique: true },
-    contactnumber: { type: Number, required: true, unique: true },
-    password: { type: String, required: true, unique: true },
-    type_of_ngo: { type: String , required: true},
-    MoA_image: { type: String , required: true},
-    field_of_work: { type: String , required: true},
-    office_address: { type: String , required: true},
-    financial_details: { type: Number , required: true},
-    help_mode: { type: String , required: true},
+    name: { type: String, required: true },
+    contactPhone: { type: String, required: true, unique: true },
+    contactEmail: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    fieldOfWork: { type: String, required: true },
+    regions: { type: [String], required: true }, // Array of strings for selected regions
+    ngoType: { type: [String], required: true }, // Array of strings for selected NGO types
+    registeredOfficeAddress: { type: String, required: true },
+    moa: { type: String, required: true }, // Store file path or file name
+    financialDetails: { type: String },
+    disasterHelp: { type: String, required: true },
+    emergencyPerson: { type: String },
+    emergencyPosition: { type: String },
+    noc: { type: String }, // Store file path or file name
+    helpMode: { type: [String], required: true }, // Array of strings for help modes
     createdAt: { type: Date, default: Date.now }
 });
 
-const NGO = mongoose.model('ngo', NGOSchema);
+const NGO = mongoose.model("NGO", NGOSchema);
 module.exports = NGO;

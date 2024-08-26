@@ -11,6 +11,9 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from the uploads folder
+app.use('/uploads', express.static('uploads'));
+
 // Routes
 app.use('/api/ngos', require('./routes/ngo'));
 app.use('/api/disasters', require('./routes/disaster'));

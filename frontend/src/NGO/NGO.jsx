@@ -7,6 +7,7 @@ const NgoRegistrationForm = () => {
         ngoName: '',
         contactPhone: '',
         contactEmail: '',
+        password: '',
         fieldOfWork: '',
         regions: [],
         ngoType: [],
@@ -16,79 +17,39 @@ const NgoRegistrationForm = () => {
         disasterHelp: '',
         emergencyPerson: '',
         emergencyPosition: '',
-        noc: ''
+        noc: '',
+        helpMode: [],
     });
 
     const [selectedRegions, setSelectedRegions] = useState([]);
     const [selectedNgoTypes, setSelectedNgoTypes] = useState([]);
-    
+    const [selectedHelpModes, setSelectedHelpModes] = useState([]);
+
     const regionOptions = [
-        'Andhra Pradesh',
-        'Arunachal Pradesh',
-        'Assam',
-        'Bihar',
-        'Chhattisgarh',
-        'Goa',
-        'Gujarat',
-        'Haryana',
-        'Himachal Pradesh',
-        'Jharkhand',
-        'Karnataka',
-        'Kerala',
-        'Madhya Pradesh',
-        'Maharashtra',
-        'Manipur',
-        'Meghalaya',
-        'Mizoram',
-        'Nagaland',
-        'Odisha',
-        'Punjab',
-        'Rajasthan',
-        'Sikkim',
-        'Tamil Nadu',
-        'Telangana',
-        'Tripura',
-        'Uttar Pradesh',
-        'Uttarakhand',
-        'West Bengal',
-        'Andaman and Nicobar Islands',
-        'Chandigarh',
-        'Dadra and Nagar Haveli and Daman and Diu',
-        'Lakshadweep',
-        'Delhi',
-        'Puducherry',
-        'Ladakh',
-        'Jammu and Kashmir'
-      ];
-      const ngoTypeOptions = [
-        'Educational NGO',
-        'Health NGO',
-        'Women Empowerment NGO',
-        'Child Welfare NGO',
-        'Environment NGO',
-        'Animal Welfare NGO',
-        'Human Rights NGO',
-        'Disaster Relief NGO',
-        'Senior Citizens NGO',
-        'Community Development NGO',
-        'Rural Development NGO',
-        'Agriculture NGO',
-        'Art & Culture NGO',
-        'Youth NGO',
-        'Research & Development NGO',
-        'Microfinance NGO',
-        'Sports NGO',
-        'Poverty Alleviation NGO',
-        'Slum Development NGO',
-        'Tribal Welfare NGO',
-        'Water & Sanitation NGO',
-        'HIV/AIDS Awareness NGO',
-        'Disabled Persons NGO',
-        'Labor & Employment NGO',
-        'Science & Technology NGO',
+        'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
+        'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka',
+        'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram',
+        'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu',
+        'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal',
+        'Andaman and Nicobar Islands', 'Chandigarh', 'Dadra and Nagar Haveli and Daman and Diu',
+        'Lakshadweep', 'Delhi', 'Puducherry', 'Ladakh', 'Jammu and Kashmir'
+    ];
+
+    const ngoTypeOptions = [
+        'Educational NGO', 'Health NGO', 'Women Empowerment NGO', 'Child Welfare NGO',
+        'Environment NGO', 'Animal Welfare NGO', 'Human Rights NGO', 'Disaster Relief NGO',
+        'Senior Citizens NGO', 'Community Development NGO', 'Rural Development NGO',
+        'Agriculture NGO', 'Art & Culture NGO', 'Youth NGO', 'Research & Development NGO',
+        'Microfinance NGO', 'Sports NGO', 'Poverty Alleviation NGO', 'Slum Development NGO',
+        'Tribal Welfare NGO', 'Water & Sanitation NGO', 'HIV/AIDS Awareness NGO',
+        'Disabled Persons NGO', 'Labor & Employment NGO', 'Science & Technology NGO',
         'Legal Awareness & Aid NGO'
-      ];
-      
+    ];
+
+    const helpModeOptions = [
+        'Food', 'Water', 'Helicopter', 'Shelter', 'Medical Aid', 'Clothing',
+        'Rescue Teams', 'Other'
+    ];
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -97,6 +58,7 @@ const NgoRegistrationForm = () => {
             [name]: value,
         });
     };
+
     const handleMultiSelectChange = (e, field) => {
         const options = e.target.options;
         const selectedValues = Array.from(options).filter(option => option.selected).map(option => option.value);
@@ -114,6 +76,9 @@ const NgoRegistrationForm = () => {
         } else if (field === 'ngoType') {
             setSelectedNgoTypes(newValues);
         }
+        else if(field === 'helpMode') {
+            setSelectedHelpModes(newValues);
+        }
     };
 
     const handleRemove = (field, item) => {
@@ -127,6 +92,9 @@ const NgoRegistrationForm = () => {
             setSelectedRegions(updatedSelection);
         } else if (field === 'ngoType') {
             setSelectedNgoTypes(updatedSelection);
+        }
+        else if(field === 'helpMode') {
+            setSelectedHelpModes(updatedSelection);
         }
     };
 
@@ -142,11 +110,15 @@ const NgoRegistrationForm = () => {
         e.preventDefault();
         const formDataToSend = new FormData();
         Object.keys(formData).forEach(key => {
-            formDataToSend.append(key, formData[key]);
+            if (Array.isArray(formData[key])) {
+                formDataToSend.append(key, JSON.stringify(formData[key]));
+            } else {
+                formDataToSend.append(key, formData[key]);
+            }
         });
 
         try {
-            const response = await axios.post('http://localhost:5000/api/NGO', formDataToSend, {
+            const response = await axios.post('http://localhost:5000/api/ngos/createngo', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -161,7 +133,7 @@ const NgoRegistrationForm = () => {
         <div className='form-container'>
             <h1>NGO Registration Form</h1>
             <form onSubmit={handleSubmit}>
-            <div>
+                <div>
                     <label>Name of NGO:</label>
                     <input 
                         type="text" 
@@ -172,30 +144,38 @@ const NgoRegistrationForm = () => {
                     />
                 </div>
                 <div>
-    <label>Contact Info:</label>
-    <div className='selected-options'>
-        <div>
-            <label>Phone:</label>
-            <input 
-                type="tel" 
-                name="contactPhone" 
-                value={formData.contactPhone} 
-                onChange={handleChange} 
-                required
-            />
-        </div>
-        <div>
-            <label>Email:</label>
-            <input 
-                type="email" 
-                name="contactEmail" 
-                value={formData.contactEmail} 
-                onChange={handleChange} 
-                required
-            />
-        </div>
-    </div>
-    </div>
+                    <label>Contact Info:</label>
+                    <div>
+                        <label>Phone:</label>
+                        <input 
+                            type="tel" 
+                            name="contactPhone" 
+                            value={formData.contactPhone} 
+                            onChange={handleChange} 
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label>Email:</label>
+                        <input 
+                            type="email" 
+                            name="contactEmail" 
+                            value={formData.contactEmail} 
+                            onChange={handleChange} 
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label>Password:</label>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            value={formData.password} 
+                            onChange={handleChange} 
+                            required
+                        />
+                    </div>
+                </div>
                 <div>
                     <label>Field of Work:</label>
                     <input 
@@ -265,6 +245,34 @@ const NgoRegistrationForm = () => {
                     </select>
                 </div>
                 <div>
+                <label>Help Mode (Select multiple):</label>
+                <div className='selected-options'>
+                    {selectedHelpModes.map((mode, index) => (
+                        <div key={index} className='selected-option'>
+                            {mode}
+                            <button 
+                                type='button' 
+                                className='remove-btn'
+                                onClick={() => handleRemove('helpMode', mode)}
+                            >
+                                x
+                            </button>
+                        </div>
+                    ))}
+                </div>
+                <select 
+                    name="helpMode" 
+                    multiple={true} 
+                    value={formData.helpMode} 
+                    onChange={(e) => handleMultiSelectChange(e, 'helpMode')}
+                    required
+                >
+                    {helpModeOptions.map((option, index) => (
+                        <option key={index} value={option}>{option}</option>
+                    ))}
+                </select>
+            </div>
+                <div>
                     <label>Registered Office Address:</label>
                     <input 
                         type="text" 
@@ -302,8 +310,6 @@ const NgoRegistrationForm = () => {
                         required
                     />
                 </div>
-               
-               
                 <div>
                     <label>NOC:</label>
                     <input 
@@ -312,12 +318,11 @@ const NgoRegistrationForm = () => {
                         onChange={handleFileChange} 
                     />
                 </div>
-
                 <button type="submit">Submit</button>
             </form>
         </div>
     );
 };
 
+
 export default NgoRegistrationForm;
-                   

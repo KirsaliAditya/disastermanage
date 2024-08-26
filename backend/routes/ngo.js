@@ -1,11 +1,27 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const NGO = require('../models/NGO'); // Import the NGO model
+const NGO = require('../models/NGO');
+const upload = require('../middleware/upload'); // Import multer configuration
+
 const router = express.Router();
 
-// Create a new NGO
-router.post('/createngo', async (req, res) => {
-    const { name, email, contactnumber, password, type_of_ngo, MoA_image, field_of_work, office_address, financial_details, help_mode } = req.body;
+// Create a new NGO with image uploads
+router.post('/createngo', upload.fields([{ name: 'moa' }, { name: 'noc' }]), async (req, res) => {
+    const {
+        ngoName,
+        contactPhone,
+        contactEmail,
+        password,
+        fieldOfWork,
+        regions,
+        ngoType,
+        registeredOfficeAddress,
+        financialDetails,
+        disasterHelp,
+        emergencyPerson,
+        emergencyPosition,
+        helpMode
+    } = req.body;
 
     try {
         // Encrypt the password
@@ -14,16 +30,21 @@ router.post('/createngo', async (req, res) => {
 
         // Create a new NGO object
         const newNGO = new NGO({
-            name,
-            email,
-            contactnumber,
+            name: ngoName,
+            contactPhone,
+            contactEmail,
             password: hashedPassword, // Store the hashed password
-            type_of_ngo,
-            MoA_image,
-            field_of_work,
-            office_address,
-            financial_details,
-            help_mode
+            fieldOfWork,
+            regions: JSON.parse(regions), // Parse the array from string
+            ngoType: JSON.parse(ngoType), // Parse the array from string
+            registeredOfficeAddress,
+            financialDetails,
+            disasterHelp,
+            emergencyPerson,
+            emergencyPosition,
+            moa: req.files['moa'] ? req.files['moa'][0].filename : null,
+            noc: req.files['noc'] ? req.files['noc'][0].filename : null,
+            helpMode: JSON.parse(helpMode) // Parse the array from string
         });
 
         // Save the NGO to the database
@@ -35,10 +56,24 @@ router.post('/createngo', async (req, res) => {
     }
 });
 
-// Edit an existing NGO
-router.put('/editngo/:id', async (req, res) => {
+// Edit an existing NGO with image uploads
+router.put('/editngo/:id', upload.fields([{ name: 'moa' }, { name: 'noc' }]), async (req, res) => {
     const { id } = req.params;
-    const { name, email, contactnumber, password, type_of_ngo, MoA_image, field_of_work, office_address, financial_details, help_mode } = req.body;
+    const {
+        ngoName,
+        contactPhone,
+        contactEmail,
+        password,
+        fieldOfWork,
+        regions,
+        ngoType,
+        registeredOfficeAddress,
+        financialDetails,
+        disasterHelp,
+        emergencyPerson,
+        emergencyPosition,
+        helpMode
+    } = req.body;
 
     try {
         // Find the NGO by ID
@@ -48,15 +83,22 @@ router.put('/editngo/:id', async (req, res) => {
         }
 
         // Update fields if provided
-        if (name) ngo.name = name;
-        if (email) ngo.email = email;
-        if (contactnumber) ngo.contactnumber = contactnumber;
-        if (type_of_ngo) ngo.type_of_ngo = type_of_ngo;
-        if (MoA_image) ngo.MoA_image = MoA_image;
-        if (field_of_work) ngo.field_of_work = field_of_work;
-        if (office_address) ngo.office_address = office_address;
-        if (financial_details) ngo.financial_details = financial_details;
-        if (help_mode) ngo.help_mode = help_mode;
+        if (ngoName) ngo.name = ngoName;
+        if (contactPhone) ngo.contactPhone = contactPhone;
+        if (contactEmail) ngo.contactEmail = contactEmail;
+        if (fieldOfWork) ngo.fieldOfWork = fieldOfWork;
+        if (regions) ngo.regions = JSON.parse(regions);
+        if (ngoType) ngo.ngoType = JSON.parse(ngoType);
+        if (registeredOfficeAddress) ngo.registeredOfficeAddress = registeredOfficeAddress;
+        if (financialDetails) ngo.financialDetails = financialDetails;
+        if (disasterHelp) ngo.disasterHelp = disasterHelp;
+        if (emergencyPerson) ngo.emergencyPerson = emergencyPerson;
+        if (emergencyPosition) ngo.emergencyPosition = emergencyPosition;
+        if (helpMode) ngo.helpMode = JSON.parse(helpMode);
+
+        // Update MoA and NOC files if provided
+        if (req.files['moa']) ngo.moa = req.files['moa'][0].filename;
+        if (req.files['noc']) ngo.noc = req.files['noc'][0].filename;
 
         // Encrypt and update the password if provided
         if (password) {
