@@ -15,8 +15,6 @@ const NgoRegistrationForm = () => {
         moa: '',
         financialDetails: '',
         disasterHelp: '',
-        emergencyPerson: '',
-        emergencyPosition: '',
         noc: '',
         helpMode: [],
     });
