@@ -1,0 +1,15 @@
+/* About/About.css */
+.about {
+    padding: 2rem;
+  }
+  
+  .about h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .about p {
+    font-size: 1.125rem;
+    color: #555;
+  }
+  

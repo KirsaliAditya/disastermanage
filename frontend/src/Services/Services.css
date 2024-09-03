@@ -1,0 +1,15 @@
+/* Services/Services.css */
+.services {
+    padding: 2rem;
+  }
+  
+  .services h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .services p {
+    font-size: 1.125rem;
+    color: #555;
+  }
+  

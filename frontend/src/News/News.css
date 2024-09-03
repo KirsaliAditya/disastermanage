@@ -1,0 +1,14 @@
+/* News/News.css */
+.news {
+    padding: 2rem;
+  }
+  
+  .news h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .news p {
+    font-size: 1.125rem;
+    color: #555;
+  }  

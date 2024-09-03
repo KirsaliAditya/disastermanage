@@ -1,0 +1,66 @@
+body {
+    background-image: linear-gradient(to right, #007bff, #f59696);
+    background-repeat: repeat-y;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-login-container {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f4f4;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-login-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.admin-login-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensure padding and border are included in the total width and height */
+}
+
+.admin-submit-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.admin-submit-btn:hover {
+    background-color: #0056b3; /* Slightly darker shade on hover */
+}
+
+.admin-submit-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.5); /* Add focus style */
+}
