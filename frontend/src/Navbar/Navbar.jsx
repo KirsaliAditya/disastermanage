@@ -26,6 +26,7 @@ const NavBar = () => {
         </li>
         <li><Link to="/news" className="navbar-item">News</Link></li>
         <li><Link to="/contact" className="navbar-item">Contact</Link></li>
+        <li><Link to="/dashboard" className="navbar-item">Dashboard</Link></li>
       </ul>
 
       <div className="navbar-options">
@@ -33,8 +34,8 @@ const NavBar = () => {
           <input type="text" placeholder="Search..." />
           <button type="button">Search</button>
         </div>
-        <Link to="/ngo-signup" className="navbar-signup">NGO Sign Up</Link>
-        <Link to="/ngo-login" className="navbar-login">NGO Login</Link>
+        <Link to="/disaster-form" className="navbar-login">Inform Disaster</Link>
+        <Link to="/auth" className="navbar-login">Register/Login</Link>
         <Link to="/admin-login" className="navbar-login">Admin Login</Link>
       </div>
     </nav>

@@ -1,8 +1,27 @@
+html, body {
+  height: 100%; 
+  margin: 0;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  flex: 1;
+  padding-bottom: 100px; 
+}
+
 .footer {
   background-color: #333;
   color: #fff;
-  padding: 40px 20px;
+  padding: 10px 20px; /* Reduce padding to make the footer narrower */
   text-align: center;
+  width: 100%;
+  bottom: 0; 
+  left: 0;
 }
 
 .footer-container {
@@ -15,13 +34,13 @@
 
 .footer-section {
   flex: 1;
-  min-width: 200px;
-  margin: 20px;
+  min-width: 150px; /* Adjust min-width to make sections narrower */
+  margin: 10px; /* Reduce margin for more compact layout */
 }
 
 .footer-section h4 {
-  font-size: 18px;
-  margin-bottom: 20px;
+  font-size: 16px; /* Slightly reduce the font size */
+  margin-bottom: 15px; /* Reduce bottom margin */
   text-transform: uppercase;
   color: #f59696;
 }
@@ -32,7 +51,7 @@
 }
 
 .footer-section ul li {
-  margin: 10px 0;
+  margin: 5px 0; /* Reduce margin between list items */
 }
 
 .footer-section ul li a {
@@ -46,22 +65,22 @@
 }
 
 .footer-section p {
-  margin: 10px 0;
+  margin: 5px 0; /* Reduce margin for paragraphs */
 }
 
 .social-icons {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 5px; /* Reduce top margin */
 }
 
 .social-icon {
-  margin: 0 10px;
+  margin: 0 5px; /* Reduce space between social icons */
 }
 
 .social-icon img {
-  width: 30px;
-  height: 30px;
+  width: 25px; /* Reduce icon size */
+  height: 25px;
   transition: transform 0.3s ease;
 }
 
@@ -70,9 +89,9 @@
 }
 
 .footer-bottom {
-  margin-top: 40px;
+  margin-top: 20px; /* Reduce top margin */
   border-top: 1px solid #444;
-  padding-top: 20px;
+  padding-top: 10px; /* Reduce padding on top */
   color: #bbb;
-  font-size: 14px;
+  font-size: 12px; /* Reduce font size for the footer bottom text */
 }

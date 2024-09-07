@@ -54,16 +54,16 @@ const Home = () => {
           {scrapedData.length === 0 ? (
             <p>No data available</p>
           ) : (
-            <ul>
+            <div className="scraped-data-grid">
               {scrapedData.slice(0, 10).map((item, index) => (
-                <li key={index}>
+                <div key={index} className="scraped-card">
                   <h3>{item.title}</h3>
                   <p>{item.content.length > 100 ? item.content.slice(0, 100) + '...' : item.content}</p>
                   <p><a href={item.url} target="_blank" rel="noopener noreferrer">Read more</a></p>
-                  <p>{item.time}</p>
-                </li>
+                  <p className="scraped-time">{item.time}</p>
+                </div>
               ))}
-            </ul>
+            </div>
           )}
           {scrapedData.length < totalArticles && (
             <button onClick={handleLoadMore} disabled={loading}>
@@ -72,9 +72,6 @@ const Home = () => {
           )}
         </section>
       </main>
-      <footer className="home-bottom">
-        {/* Keep this section vacant for now */}
-      </footer>
     </div>
   );
 };

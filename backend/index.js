@@ -18,6 +18,7 @@ app.use('/api/ngos', require('./routes/ngo'));
 app.use('/api/disasters', require('./routes/disaster'));
 //app.use('/api/chatbot', require('./routes/chatbot')); // Existing routes
 app.use('/api/scraper', require('./routes/scraper')); // Use combined scraper route
+app.use('/api/excel', require('./routes/excelData')); // New Excel data route
 
 app.listen(port, () => {
   console.log(`Disaster Management backend listening on port http://localhost:${port}`);

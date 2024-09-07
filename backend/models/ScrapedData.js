@@ -24,11 +24,9 @@ const dataSchema = new Schema({
   },
   additionalField2: {
     type: String,
-  },
-  // Add any other fields relevant to your data here
+  }
 });
 
 // Create the model from the schema
 const ScrapedData = mongoose.model('Data', dataSchema);
-
 module.exports = ScrapedData;

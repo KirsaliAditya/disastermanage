@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const DisasterSchema = new Schema({
-    disaster: { type: mongoose.Schema.Types.ObjectId, ref: 'disaster' },
     name: { type: String, required: true },
     type: { type: String, required: true },
     location: { type: String, required: true },
@@ -14,6 +13,7 @@ const DisasterSchema = new Schema({
         required: true, 
         enum: ['Food', 'NDRF Team', 'Shelter', 'Medical', 'Evacuation', 'Other'] 
     },
+    liveLocation: { type: String }, // New field for live location link
     createdAt: { type: Date, default: Date.now }
 });
 

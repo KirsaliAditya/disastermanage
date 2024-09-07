@@ -1,9 +1,12 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const NGO = require('../models/NGO');
+const jwt = require('jsonwebtoken');
 const upload = require('../middleware/upload'); // Import multer configuration
 
 const router = express.Router();
+
+const JWT_SECRET = "disastermanagement";
 
 // Create a new NGO with image uploads
 router.post('/createngo', upload.fields([{ name: 'moa' }, { name: 'noc' }]), async (req, res) => {
@@ -158,5 +161,41 @@ router.get('/getngo/:id', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+// NGO Login API
+router.get('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        // Check if NGO exists
+        const ngo = await NGO.findOne({ contactEmail: email });
+        if (!ngo) {
+            return res.status(400).json({ message: 'NGO not found' });
+        }
+
+        // Validate password
+        const isMatch = await bcrypt.compare(password, ngo.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign({ id: ngo._id, email: ngo.contactEmail }, JWT_SECRET, { expiresIn: '1h' });
+
+        // Return token and success message
+        res.status(200).json({
+            message: 'Login successful',
+            token,
+            ngo: {
+                id: ngo._id,
+                name: ngo.name,
+                email: ngo.contactEmail,
+            },
+        });
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 
 module.exports = router;

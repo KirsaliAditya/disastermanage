@@ -1,6 +1,6 @@
 body {
-    background-image: linear-gradient(to right, #007bff, #f59696);
-    background-repeat: repeat-y;
+    background-image: none; 
+    background-color: transparent; 
     height: 100vh;
     margin: 0;
     padding: 0;

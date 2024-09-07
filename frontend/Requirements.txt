@@ -1,0 +1,3 @@
+react-chartjs-2
+npm install chart.js@latest react-chartjs-2@latest --legacy-peer-deps
+react-leaflet

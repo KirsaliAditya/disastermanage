@@ -1,4 +1,3 @@
-// routes/chatbot.js
 const express = require('express');
 const { GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI } = require('langchain_google_genai');
 const { FAISS } = require('langchain_community.vectorstores');

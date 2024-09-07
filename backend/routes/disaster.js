@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Disaster = require('../models/Disaster');
 
-// @route    POST /api/disasters/createdisaster
 router.post('/createdisaster', async (req, res) => {
     try {
-        const { name, type, location, description, severity, injuries, required_assistance } = req.body;
+        const { name, type, location, description, severity, injuries, required_assistance, liveLocation } = req.body;
         
+        // Create a new disaster report
         const disaster = new Disaster({
             name,
             type,
@@ -14,27 +14,52 @@ router.post('/createdisaster', async (req, res) => {
             description,
             severity,
             injuries,
-            required_assistance
+            required_assistance,
+            liveLocation  // Store live location link
         });
 
         await disaster.save();
-        res.status(201).json({ message: 'Disaster created successfully' });
+        res.status(201).json({ message: 'Disaster created successfully', disaster });
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server Error');
     }
 });
 
-// @route    PUT /api/disasters/editdisaster/:id
+router.get('/getdisasters', async (req, res) => {
+    try {
+        const disasters = await Disaster.find();
+        res.status(200).json(disasters);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+router.get('/getdisaster/:id', async (req, res) => {
+    try {
+        const disaster = await Disaster.findById(req.params.id);
+        if (!disaster) {
+            return res.status(404).json({ message: 'Disaster not found' });
+        }
+
+        res.status(200).json(disaster);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 router.put('/editdisaster/:id', async (req, res) => {
     try {
-        const { name, type, location, description, severity, injuries, required_assistance } = req.body;
+        const { name, type, location, description, severity, injuries, required_assistance, liveLocation } = req.body;
 
         let disaster = await Disaster.findById(req.params.id);
         if (!disaster) {
             return res.status(404).json({ message: 'Disaster not found' });
         }
 
+        // Update the disaster fields
         disaster.name = name || disaster.name;
         disaster.type = type || disaster.type;
         disaster.location = location || disaster.location;
@@ -42,16 +67,16 @@ router.put('/editdisaster/:id', async (req, res) => {
         disaster.severity = severity || disaster.severity;
         disaster.injuries = injuries || disaster.injuries;
         disaster.required_assistance = required_assistance || disaster.required_assistance;
+        disaster.liveLocation = liveLocation || disaster.liveLocation;
 
         await disaster.save();
-        res.status(200).json({ message: 'Disaster updated successfully' });
+        res.status(200).json({ message: 'Disaster updated successfully', disaster });
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server Error');
     }
 });
 
-// @route    DELETE /api/disasters/deletedisaster/:id
 router.delete('/deletedisaster/:id', async (req, res) => {
     try {
         const result = await Disaster.deleteOne({ _id: req.params.id });
@@ -67,31 +92,4 @@ router.delete('/deletedisaster/:id', async (req, res) => {
     }
 });
 
-// @route    GET /api/disasters/getdisasters
-router.get('/getdisasters', async (req, res) => {
-    try {
-        const disasters = await Disaster.find();
-        res.status(200).json(disasters);
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send('Server Error');
-    }
-});
-
-// @route    GET /api/disasters/getdisaster/:id
-router.get('/getdisaster/:id', async (req, res) => {
-    try {
-        const disaster = await Disaster.findById(req.params.id);
-        if (!disaster) {
-            return res.status(404).json({ message: 'Disaster not found' });
-        }
-
-        res.status(200).json(disaster);
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send('Server Error');
-    }
-});
-
 module.exports = router;
-

@@ -10,6 +10,9 @@ import NgoLogin from './Ngo-Login/Ngo-Login';
 import NgoSignup from './Ngo-Signup/Ngo-Signup';
 import AdminLogin from './Admin-Login/Admin-Login';
 import ChatIcon from './ChatBotIcon/ChatBotIcon';
+import Dashboard from './DashBoard/DashBoard';
+import AuthForm from './AuthForm/AuthForm';
+import DisasterForm from './DisasterForm/DisasterForm';
 import Footer from './Footer/Footer';
 
 function App() {
@@ -29,7 +32,10 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/ngo-signup" element={<NgoSignup />} />
               <Route path="/ngo-login" element={<NgoLogin />} />
+              <Route path="/auth" element={<AuthForm />} />
               <Route path="/admin-login" element={<AdminLogin />} />
+              <Route path="/disaster-form" element={<DisasterForm />} />
+              <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
           </main>
         </div>
