@@ -1,0 +1,42 @@
+.rss-feed-container {
+    height: 100px; /* adjust the height to fit one news item */
+    overflow-y: hidden;
+  }
+  
+  .rss-feed-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .rss-feed-list li {
+    padding: 10px;
+    border-bottom: none; /* remove border since only one item is shown */
+  }
+  
+  /* Add animation to make the list scroll from bottom to top */
+  .rss-feed-list {
+    animation: scrollUp 10s linear infinite;
+  }
+  
+  @keyframes scrollUp {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Add additional styles to make it look like a bulletin board */
+  .rss-feed-list li {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .rss-feed-list li span {
+    display: block;
+    font-size: 14px;
+    color: #666;
+  }
