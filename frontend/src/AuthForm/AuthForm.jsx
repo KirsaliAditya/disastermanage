@@ -159,7 +159,7 @@ const AuthForm = () => {
             </div>
             <button type="submit" className="submit-btn">Login</button>
             <p className="toggle-link">
-              Don't have an account? <button type="button" onClick={() => setIsLogin(false)}>Create one</button>
+              Don't have an account? <button type="button" id="check" onClick={() => setIsLogin(false)}>Create new account</button>
             </p>
           </>
         ) : (

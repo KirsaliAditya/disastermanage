@@ -11,11 +11,14 @@ const Dashboard = () => {
   const [showSummary, setShowSummary] = useState(false); // State to control summary visibility
 
   useEffect(() => {
-    // Fetch incident data from your API
-    fetch('http://localhost:5000/api/excel')
-      .then((response) => response.json())
-      .then((data) => setIncidentData(data))
-      .catch((error) => console.error('Error fetching incident data:', error));
+    // Fetch incident data from your API using axios
+    axios.get('http://localhost:5000/api/excel')
+      .then((response) => {
+        setIncidentData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching incident data:', error);
+      });
   }, []);
 
   // Total incidents in each state (for Pie Chart)

@@ -47,7 +47,7 @@ const scrapeData = async (topic) => {
 };
 
 // Schedule the scraper to run every 5 minutes
-cron.schedule('*/60 * * * *', () => {
+cron.schedule('*/10 * * * *', () => {
   console.log('Running scraper every 5 minutes');
   scrapeData('cloudburst').then(console.log).catch(console.error);
 });

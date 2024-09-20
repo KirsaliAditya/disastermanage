@@ -13,6 +13,7 @@ const ChatBotIcon = () => {
     <>
       <div className="floating-chat-icon" onClick={toggleChatWidget}>
         <i className="fas fa-comments"></i>
+        <span className="chat-text">How may I help you?</span>
       </div>
       <div className={`chat-widget ${isOpen ? 'open' : ''}`}>
         <div className="chat-widget-header">

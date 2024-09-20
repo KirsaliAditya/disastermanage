@@ -5,7 +5,10 @@ from textblob import TextBlob
 
 # Initialize the Flask app and enable CORS
 app = Flask(__name__)
-CORS(app)
+#CORS(app)
+#from flask_cors import CORS
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 
 # List of multiple RSS feed URLs
 rss_urls = [

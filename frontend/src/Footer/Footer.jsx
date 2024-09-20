@@ -22,7 +22,7 @@ const Footer = () => {
         <div className="footer-section">
           <h4>Contact Information</h4>
           <p>National Disaster Response Force (NDRF)</p>
-          <p>Email: ndrf@example.com</p>
+          <p>Email: resqaction@gmail.com</p>
           <p>Phone: +91-123-4567890</p>
         </div>
         <div className="footer-section">
@@ -44,7 +44,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; 2024 NDRF India. All Rights Reserved.</p>
+        <p>&copy; 2024 ResQAction India. All Rights Reserved.</p>
       </div>
     </footer>
   );

@@ -1,26 +1,22 @@
-/* Reset */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-  background-color: #f3f4f6;
-  color: #333;
-}
-
 /* General Layout */
 .home {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #f8f9fa;
+  font-family: 'Times New Roman', Times, serif;
 }
+
 
 .home-top {
   background: linear-gradient(90deg, #e85009, #f3722c);
   color: white;
-  padding: 20px 10px;
+  padding: 20px;
   text-align: center;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .home-top h1 {
@@ -31,90 +27,148 @@ html, body {
   animation: fadeInDown 1s ease;
 }
 
-.home-main {
+.home-content {
   display: flex;
-  flex: 1;
-  margin: 20px;
+  justify-content: space-between;
   gap: 20px;
 }
 
-.home-sidebar {
-  width: 25%;
+/* Latest News Section */
+.latest-news {
+  width: 20%;
   background: #ffffff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   animation: fadeInLeft 1s ease;
+  border: solid 5px blueviolet;
 }
 
-.home-content {
-  flex: 1;
+/* Photos Space Section */
+.photos-space {
+  width: 50%;
+  background: #f0f0f0;
   padding: 20px;
-  background: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeInUp 1s ease;
+  border: solid 5px blueviolet;
+  display: flex;
+  flex-direction: column; /* Align children vertically */
+  align-items: center; /* Center children horizontally */
+}
+
+/* Heading in Photos Space */
+.photos-space h2 {
+  margin-bottom: 20px; /* Space between heading and slider */
+  font-size: 1.5rem; /* Adjust font size as needed */
+  color: #333; /* Heading color */
+}
+
+/* Visual Container Section */
+.visual-container {
+  width: 20%;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   animation: fadeInRight 1s ease;
+  border: solid 5px blueviolet;
 }
 
-.realtime-photos, .news {
-  margin-bottom: 20px;
+.visual-description {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+  text-align: center;
+}
+.stats-donut{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; /* Adjust height as needed */
+  padding: 10px; /* Padding around the image */
 }
 
-h2 {
-  font-size: 1.8rem;
-  color: #e85009;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #e85009;
-  padding-bottom: 5px;
+/* Carousel Container */
+.slick-slider {
+  width: 100%;
 }
 
-/* Grid Layout for Scraped Data */
+/* Carousel Slide */
+.carousel-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; /* Adjust height as needed */
+  padding: 10px; /* Padding around the image */
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+  max-height: 100%; /* Ensure the image fits within the height */
+  object-fit: cover; /* Cover the container while maintaining aspect ratio */
+  border-radius: 8px;
+}
+
+/* Additional Styles for Carousel Dots */
+.slick-dots {
+  bottom: 10px; /* Adjust position as needed */
+}
+
+.slick-dots li button:before {
+  font-size: 12px; /* Adjust size of dots as needed */
+  color: #333; /* Color of the dots */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #e85009; /* Color of the active dot */
+}
+
+/* Layout for Scraped Data */
+.scraped-data-section {
+  margin-top: 20px;
+  width: 100%;
+}
+
 .scraped-data-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
 }
 
-/* Scraped Card Styling */
-.scraped-card {
-  background-color: #fff;
-  padding: 20px;
+.card {
+  background-color: #ffffff;
+  padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.scraped-card:hover {
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transform: translateY(-5px);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
 }
 
-.scraped-card h3 {
+.card h3 {
   font-size: 1.4rem;
-  margin: 0 0 10px;
+  margin: 0;
   color: #333;
 }
 
-.scraped-card p {
+.card p {
   font-size: 1rem;
   color: #555;
-  margin: 10px 0;
-}
-
-.scraped-card a {
-  color: #e85009;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.scraped-card a:hover {
-  text-decoration: underline;
+  margin: 5px 0;
 }
 
 .scraped-time {
   font-size: 0.9rem;
-  color: #777;
-  margin-top: 10px;
+  color: #888;
 }
 
 /* Button Styling */
@@ -171,5 +225,16 @@ button:disabled {
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
